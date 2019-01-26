@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Ayerwaves.DBAccess;
+using Ayerwaves.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -25,6 +26,19 @@ namespace Ayerwaves.Controllers
         {
             var result = _storage.GetAll();
             return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetArtistById(int id)
+        {
+            var result = _storage.GetById(id);
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public void AddArtist(Artist artist)
+        {
+            _storage.Add(artist);
         }
     }
 }

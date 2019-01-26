@@ -24,9 +24,58 @@ namespace Ayerwaves.DBAccess
             {
                 connection.Open();
 
-                var result = connection.Query<Artist>(@"Select * FROM Artist");
+                var result = connection.Query<Artist>(@"Select 
+                                                        A.id,
+	                                                    A.[Name],
+	                                                    G.GenreName,
+	                                                    A.Description,
+	                                                    S.StageName,
+	                                                    A.[Day],
+	                                                    A.imageLink
+                                                    from Artist A
+                                                    JOIN Genre G
+                                                    ON A.Genre = G.id
+                                                    JOIN Stage S
+                                                    on A.Stage = S.id");
 
                 return result.ToList();
+            }
+        }
+
+        public Artist GetById(int Id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var result = connection.QueryFirst<Artist>(@"SELECT
+                                                                A.id,
+	                                                            A.[Name],
+	                                                            G.GenreName,
+	                                                            A.Description,
+	                                                            S.StageName,
+	                                                            A.[Day],
+	                                                            A.imageLink
+                                                            from Artist A
+                                                            JOIN Genre G
+                                                            ON A.Genre = G.id
+                                                            JOIN Stage S
+                                                            on A.Stage = S.id
+                                                            WHERE A.id = @Id", new { Id });
+                return result;
+            }
+        }
+
+        public bool Add(Artist artist)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var result = connection.Execute(@"INSERT into dbo.Artist ([Name], Genre, [Description], Stage, [Day], imageLink )
+                                                    Values (@Name, @GenreName, @Description, @StageName, '@Day', @imageLink )", artist);
+
+                return result == 1;
             }
         }
     }
