@@ -40,5 +40,12 @@ namespace Ayerwaves.Controllers
         {
             _storage.Add(artist);
         }
+
+        [HttpPut("updateArtist/{id}")]
+        public IActionResult UpdateTheArtist(int id, Artist artist)
+        {
+            var result = _storage.UpdateArtist(id, artist);
+            return Ok(result);
+        }
     }
 }

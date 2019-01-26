@@ -78,5 +78,25 @@ namespace Ayerwaves.DBAccess
                 return result == 1;
             }
         }
+
+        public bool UpdateArtist(int id, Artist artist)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                artist.id = id;
+
+                var result = connection.Execute(@"UPDATE Artist
+                                                    SET [Name] = @Name
+                                                        ,Genre = @GenreName
+                                                        ,[Description] = @Description
+                                                        ,Stage = @StageName
+                                                        ,[Day] = @Day
+                                                        ,imageLink = @imageLink
+                                                    WHERE id = @id", artist);
+                return result == 1;
+            }
+        }
     }
 }
