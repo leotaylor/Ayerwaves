@@ -7,5 +7,8 @@ namespace Ayerwaves.Models
 {
     public class Artist
     {
+        public int id { get; set; }
+        public string Name { get; set; }
+
     }
 }
