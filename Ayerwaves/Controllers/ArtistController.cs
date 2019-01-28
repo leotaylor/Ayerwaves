@@ -47,5 +47,12 @@ namespace Ayerwaves.Controllers
             var result = _storage.UpdateArtist(id, artist);
             return Ok(result);
         }
+
+        [HttpDelete("deleteArtist/{id}")]
+        public IActionResult DeleteArtistById(int id)
+        {
+            var result = _storage.DeleteArtist(id);
+            return Ok(result);
+        }
     }
 }
