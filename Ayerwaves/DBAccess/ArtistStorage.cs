@@ -98,5 +98,18 @@ namespace Ayerwaves.DBAccess
                 return result == 1;
             }
         }
+
+        public bool DeleteArtist(int Id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var result = connection.Execute(@"DELETE FROM Artist
+                                                    WHERE id = @id", new { id = Id });
+
+                return result == 1;
+            }
+        }
     }
 }
