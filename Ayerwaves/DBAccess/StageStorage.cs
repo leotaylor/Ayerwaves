@@ -71,7 +71,7 @@ namespace Ayerwaves.DBAccess
             }
         }
 
-        public bool DeleteGenre(int Id)
+        public bool DeleteStage(int Id)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
