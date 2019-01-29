@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Ayerwaves.Models
 {
-    public class VendorType
+    public class VendorTypeModel
     {
         public int id { get; set; }
-        public string TypeOfVendor { get; set; }
+        public string VendorType { get; set; }
     }
 }

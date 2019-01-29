@@ -18,45 +18,45 @@ namespace Ayerwaves.DBAccess
             ConnectionString = config.GetSection("ConnectionString").Value;
         }
 
-        public List<VendorType> GetAll()
+        public List<VendorTypeModel> GetAll()
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
 
-                var result = connection.Query<VendorType>(@"Select * from VendorType");
+                var result = connection.Query<VendorTypeModel>(@"Select * from VendorType");
 
                 return result.ToList();
             }
         }
 
-        public VendorType GetById(int Id)
+        public VendorTypeModel GetById(int Id)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
 
-                var result = connection.QueryFirst<VendorType>(@"select *
+                var result = connection.QueryFirst<VendorTypeModel>(@"select *
                                                                 from VendorType
                                                                 where id = @Id", new { Id });
                 return result;
             }
         }
 
-        public bool Add(VendorType vendorType)
+        public bool Add(VendorTypeModel vendorType)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
 
                 var result = connection.Execute(@"INSERT into dbo.VendorType (VendorType)
-                                                    Values (@TypeOfVendor )", vendorType);
+                                                    Values (@VendorType )", vendorType);
 
                 return result == 1;
             }
         }
 
-        public bool UpdateVendorType(int id, VendorType vendorType)
+        public bool UpdateVendorType(int id, VendorTypeModel vendorType)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
@@ -65,7 +65,7 @@ namespace Ayerwaves.DBAccess
                 vendorType.id = id;
 
                 var result = connection.Execute(@"UPDATE VendorType
-                                                    SET [VendorType] = @TypeOfVendor
+                                                    SET [VendorType] = @VendorType
                                                     WHERE id = @id", vendorType);
                 return result == 1;
             }
