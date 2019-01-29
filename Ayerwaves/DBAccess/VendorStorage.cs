@@ -63,5 +63,18 @@ namespace Ayerwaves.DBAccess
                 return result;
             }
         }
+
+        public bool Add(Vendor vendor)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var result = connection.Execute(@"INSERT into dbo.Vendor ([Name], [Type], [Description], Requirements, ContactName, ContactEmail, ContactPhone )
+                                                    Values (@Name, @Type, @Description, @Requirements, '@ContactName', @ContactEmail, @ContactPhone )", vendor);
+
+                return result == 1;
+            }
+        }
     }
 }
