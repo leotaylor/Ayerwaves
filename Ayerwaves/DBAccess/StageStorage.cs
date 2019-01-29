@@ -24,19 +24,19 @@ namespace Ayerwaves.DBAccess
             {
                 connection.Open();
 
-                var result = connection.Query<Genre>(@"Select * from Stage");
+                var result = connection.Query<Stage>(@"Select * from Stage");
 
                 return result.ToList();
             }
         }
 
-        public Genre GetById(int Id)
+        public Stage GetById(int Id)
         {
             using (var connection = new SqlConnection(ConnectionString))
             {
                 connection.Open();
 
-                var result = connection.QueryFirst<Genre>(@"select *
+                var result = connection.QueryFirst<Stage>(@"select *
                                                             from Stage
                                                             where id = @Id", new { Id });
                 return result;
