@@ -26,5 +26,12 @@ namespace Ayerwaves.Controllers
             var result = _storage.GetAll();
             return Ok(result);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetVendorById(int id)
+        {
+            var result = _storage.GetById(id);
+            return Ok(result);
+        }
     }
 }

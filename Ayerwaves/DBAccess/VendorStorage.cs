@@ -40,5 +40,28 @@ namespace Ayerwaves.DBAccess
                 return result.ToList();
             }
         }
+
+        public Vendor GetById(int Id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var result = connection.QueryFirst<Vendor>(@"SELECT
+	                                                            v.id,
+	                                                            v.[Name],
+	                                                            vt.VendorType as [Type],
+	                                                            v.[Description],
+	                                                            v.Requirements,
+	                                                            v.ContactName,
+	                                                            v.ContactEmail,
+	                                                            v.ContactPhone
+                                                            from Vendor v
+                                                            Join VendorType vt
+                                                            ON vt.id = v.[Type]
+                                                            WHERE v.id = @Id", new { Id });
+                return result;
+            }
+        }
     }
 }
