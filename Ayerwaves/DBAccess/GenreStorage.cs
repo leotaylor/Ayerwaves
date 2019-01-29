@@ -36,7 +36,8 @@ namespace Ayerwaves.DBAccess
             {
                 connection.Open();
 
-                var result = connection.QueryFirst<Genre>(@"select G.GenreName
+                var result = connection.QueryFirst<Genre>(@"select G.id,
+                                                                    G.GenreName
                                                             from Genre G
                                                             where id = @Id", new { Id });
                 return result;
