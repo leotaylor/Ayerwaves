@@ -40,5 +40,19 @@ namespace Ayerwaves.Controllers
         {
             _storage.Add(vendor);
         }
+
+        [HttpPut("updateVendor/{id}")]
+        public IActionResult UpdateTheVendor(int id, Vendor vendor)
+        {
+            var result = _storage.UpdateVendor(id, vendor);
+            return Ok(result);
+        }
+
+        [HttpDelete("deleteVendor/{id}")]
+        public IActionResult DeleteVendorById(int id)
+        {
+            var result = _storage.DeleteVendor(id);
+            return Ok(result);
+        }
     }
 }

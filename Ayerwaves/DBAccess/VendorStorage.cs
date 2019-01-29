@@ -76,5 +76,39 @@ namespace Ayerwaves.DBAccess
                 return result == 1;
             }
         }
+
+        public bool UpdateVendor(int id, Vendor vendor)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                vendor.id = id;
+
+                var result = connection.Execute(@"UPDATE Vendor
+                                                    SET [Name] = @Name
+                                                        ,[Type] = @Type
+                                                        ,[Description] = @Description
+                                                        ,Requirements = @Requirements
+                                                        ,ContactName = @ContactName
+                                                        ,ContactEmail = @ContactEmail
+                                                        ,ContactPhone = @ContactPhone
+                                                    WHERE id = @id", vendor);
+                return result == 1;
+            }
+        }
+
+        public bool DeleteVendor(int Id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var result = connection.Execute(@"DELETE FROM Vendor
+                                                    WHERE id = @id", new { id = Id });
+
+                return result == 1;
+            }
+        }
     }
 }
