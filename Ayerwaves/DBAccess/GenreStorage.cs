@@ -56,6 +56,32 @@ namespace Ayerwaves.DBAccess
             }
         }
 
+        public bool UpdateGenre(int id, Genre genre)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
 
+                genre.id = id;
+
+                var result = connection.Execute(@"UPDATE Genre
+                                                    SET [GenreName] = @GenreName
+                                                    WHERE id = @id", genre);
+                return result == 1;
+            }
+        }
+
+        public bool DeleteGenre(int Id)
+        {
+            using (var connection = new SqlConnection(ConnectionString))
+            {
+                connection.Open();
+
+                var result = connection.Execute(@"DELETE FROM Genre
+                                                    WHERE id = @id", new { id = Id });
+
+                return result == 1;
+            }
+        }
     }
 }
