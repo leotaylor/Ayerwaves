@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Ayerwaves.DBAccess;
 using Ayerwaves.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -35,20 +36,20 @@ namespace Ayerwaves.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost, Authorize]
         public void AddVendorType(VendorTypeModel vendorType)
         {
             _storage.Add(vendorType);
         }
 
-        [HttpPut("updateVendorType/{id}")]
+        [HttpPut("updateVendorType/{id}"), Authorize]
         public IActionResult UpdateTheVendorType(int id, VendorTypeModel vendorType)
         {
             var result = _storage.UpdateVendorType(id, vendorType);
             return Ok(result);
         }
 
-        [HttpDelete("deleteVendorType/{id}")]
+        [HttpDelete("deleteVendorType/{id}"), Authorize]
         public IActionResult DeleteVendorTypeById(int id)
         {
             var result = _storage.DeleteVendorType(id);
