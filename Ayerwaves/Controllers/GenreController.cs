@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Ayerwaves.DBAccess;
 using Ayerwaves.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
@@ -35,20 +36,20 @@ namespace Ayerwaves.Controllers
             return Ok(result);
         }
 
-        [HttpPost]
+        [HttpPost, Authorize]
         public void AddGenre(Genre genre)
         {
             _storage.Add(genre);
         }
 
-        [HttpPut("updateGenre/{id}")]
+        [HttpPut("updateGenre/{id}"), Authorize]
         public IActionResult UpdateTheArtist(int id, Genre genre)
         {
             var result = _storage.UpdateGenre(id, genre);
             return Ok(result);
         }
 
-        [HttpDelete("deleteGenre/{id}")]
+        [HttpDelete("deleteGenre/{id}"), Authorize]
         public IActionResult DeleteGenreById(int id)
         {
             var result = _storage.DeleteGenre(id);
