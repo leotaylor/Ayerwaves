@@ -73,7 +73,7 @@ namespace Ayerwaves.DBAccess
                 connection.Open();
 
                 var result = connection.Execute(@"INSERT into dbo.Artist ([Name], Genre, [Description], Stage, [Day], imageLink )
-                                                    Values (@Name, @GenreName, @Description, @StageName, '@Day', @imageLink )", artist);
+                                                    Values (@Name, @GenreName, @Description, @StageName, @Day, @imageLink )", artist);
 
                 return result == 1;
             }
